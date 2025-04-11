@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Search">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#092C71"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <CheckBox
+            android:id="@+id/femalech"
+            style="@style/fontStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="127dp"
+            android:layout_marginEnd="45dp"
+            android:button="@android:drawable/btn_dialog"
+            android:text="Female"
+            app:layout_constraintEnd_toEndOf="@+id/searchtxt"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <CheckBox
+            android:id="@+id/malech"
+            style="@style/fontStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="20dp"
+            android:button="@android:drawable/btn_dialog"
+            android:text="Male"
+            app:layout_constraintStart_toStartOf="@+id/searchtxt"
+            app:layout_constraintTop_toBottomOf="@+id/searchtxt" />
+
+        <EditText
+            android:id="@+id/searchtxt"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="71dp"
+            android:layout_marginEnd="54dp"
+            android:layout_marginBottom="68dp"
+            android:ems="10"
+            android:hint="What in your mind ??"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="@+id/femalech"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="29dp"
+            android:background="#ffd700"
+            android:dropDownSelector="#092C71"
+            android:popupBackground="#092C71"
+            app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <SeekBar
+            android:id="@+id/priceBar"
+            android:layout_width="175dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:max="500"
+            android:secondaryProgressTint="#ffffff"
+            android:thumbTint="#ffd700"
+            app:layout_constraintBottom_toTopOf="@+id/_dynamic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/femalech" />
+
+        <TextView
+            android:id="@+id/searchtext"
+            style="@style/fontStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="Search :"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toTopOf="@+id/searchtxt"
+            app:layout_constraintStart_toStartOf="@+id/searchtxt" />
+
+        <ScrollView
+            android:id="@+id/scrollView3"
+            android:layout_width="0dp"
+            android:layout_height="423dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
