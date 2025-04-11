@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="fontStyle">
+        <item name="android:fontFamily">@font/gamebubble</item>
+        <item name="android:textColor">#FFD700</item>
+        <item name="android:textColorLink">#FFD700</item>
+    </style>
+
+    <style name="buttonstyles">
+        <item name="android:backgroundTint">#ffd700</item>
+        <item name="android:fontFamily">@font/gamebubble</item>
+        <item name="android:textColor">#092C71</item>
+        <item name="android:textSize">34sp</item>
+
+    </style>
+</resources>
