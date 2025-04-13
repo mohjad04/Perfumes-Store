@@ -17,7 +17,14 @@ public class Perfuem {
 
     public void setBrand(String brand) {
         this.brand = brand;
-        brands.add(brand);
+
+        for (int i =0;i<brands.size();i++){
+            if(this.getBrand().equalsIgnoreCase(brands.get(i))){
+                continue;
+            }
+            brands.add(brand);
+        }
+
     }
 
 
@@ -44,8 +51,9 @@ public class Perfuem {
         return imgSrc;
     }
 
-    private void setImgSrc(String imgSrc){
-        this.imgSrc = brand +model;
+    public void setImgSrc(String imgSrc) {
+        this.imgSrc =  this.getBrand().toLowerCase().replaceAll(" ", "_") + "_" +
+                this.getModel().toLowerCase().replaceAll(" ", "_");;
     }
 
     public List<String> getBrands() {
@@ -56,5 +64,14 @@ public class Perfuem {
         this.brands = brands;
     }
 
-
+    @Override
+    public String toString() {
+        return "Perfuem{" +
+                "brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", price=" + price +
+                ", imgSrc='" + imgSrc + '\'' +
+                ", brands=" + brands +
+                '}';
+    }
 }

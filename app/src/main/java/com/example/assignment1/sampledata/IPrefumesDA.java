@@ -4,5 +4,6 @@ import java.util.List;
 
 public interface IPrefumesDA {
 
-    List<Perfuem> getPerfumes(String brand);
+    List<Perfuem> getPerfumes();
+    List<Perfuem> getPerfumesByBrand(String brand);
 }
