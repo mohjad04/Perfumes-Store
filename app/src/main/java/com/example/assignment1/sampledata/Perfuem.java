@@ -9,7 +9,7 @@ public class Perfuem {
     private String model;
     private double price;
     private String imgSrc;
-    private List<String> brands = new ArrayList<>();
+    String Gender;
 
     public String getBrand() {
         return brand;
@@ -17,14 +17,6 @@ public class Perfuem {
 
     public void setBrand(String brand) {
         this.brand = brand;
-
-        for (int i =0;i<brands.size();i++){
-            if(this.getBrand().equalsIgnoreCase(brands.get(i))){
-                continue;
-            }
-            brands.add(brand);
-        }
-
     }
 
 
@@ -56,12 +48,12 @@ public class Perfuem {
                 this.getModel().toLowerCase().replaceAll(" ", "_");;
     }
 
-    public List<String> getBrands() {
-        return brands;
+    public String getGender() {
+        return Gender;
     }
 
-    public void setBrands(List<String> brands) {
-        this.brands = brands;
+    public void setGender(String gender) {
+        Gender = gender;
     }
 
     @Override
@@ -71,7 +63,6 @@ public class Perfuem {
                 ", model='" + model + '\'' +
                 ", price=" + price +
                 ", imgSrc='" + imgSrc + '\'' +
-                ", brands=" + brands +
                 '}';
     }
 }

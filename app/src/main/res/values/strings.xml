@@ -47,4 +47,7 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="homeText">Hey , Welcome to Jadallah Perfiumes...Enjoy Shopping (:</string>
+    <string name="search">Search</string>
+    <string name="TopSearch">Search :</string>
+    <string name="srchBar">Name of Model ??</string>
 </resources>

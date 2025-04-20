@@ -1,7 +1,9 @@
 package com.example.assignment1;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -17,6 +19,7 @@ import com.example.assignment1.sampledata.Perfuem;
 import com.example.assignment1.sampledata.PerfumeAdapter;
 import com.example.assignment1.sampledata.PerfumesDA;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,6 +27,9 @@ public class GenderPage extends AppCompatActivity {
 
     private ListView res;
     private Spinner genSpinner;
+    IPrefumesDA perfumes = new PerfumesDA();
+    List<Perfuem> perfuemList;
+    private Button gensrchbtn;
 
 
 
@@ -35,6 +41,7 @@ public class GenderPage extends AppCompatActivity {
 
         Intent intent = getIntent();
         setView();
+        genSearch();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -45,6 +52,7 @@ public class GenderPage extends AppCompatActivity {
 
     private void setView(){
         res = findViewById(R.id.genList);
+        gensrchbtn = findViewById(R.id.gensrchbtn);
 
          genSpinner = findViewById(R.id.genderspn);
         List<String> genders = Arrays.asList("Male", "Female", "Unisex", "All");
@@ -53,8 +61,7 @@ public class GenderPage extends AppCompatActivity {
         genSpinner.setAdapter(genadp);
 
 
-        IPrefumesDA perfumes = new PerfumesDA();
-        List<Perfuem> perfuemList = perfumes.getPerfumes();
+      perfuemList = perfumes.getPerfumes();
 
         PerfumeAdapter adapter = new PerfumeAdapter(GenderPage.this, perfuemList);
         res.setAdapter(adapter);
@@ -62,6 +69,29 @@ public class GenderPage extends AppCompatActivity {
 
     }
 
+
+    public void genSearch() {
+        gensrchbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String gen = genSpinner.getSelectedItem().toString(); // Moved inside
+                List<Perfuem> finalRes = new ArrayList<>();
+
+                if (!gen.isEmpty() && !gen.equalsIgnoreCase("All")) {
+                    for (Perfuem p : perfuemList) {
+                        if (p.getGender().equalsIgnoreCase(gen)) {
+                            finalRes.add(p);
+                        }
+                    }
+                } else {
+                    finalRes.addAll(perfuemList); // Show all if "All" is selected
+                }
+
+                PerfumeAdapter adapter = new PerfumeAdapter(GenderPage.this, finalRes);
+                res.setAdapter(adapter);
+            }
+        });
+    }
 
 
 

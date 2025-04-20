@@ -17,97 +17,93 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <CheckBox
-            android:id="@+id/femalech"
-            style="@style/fontStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="127dp"
-            android:layout_marginEnd="45dp"
-            android:button="@android:drawable/btn_dialog"
-            android:text="Female"
-            app:layout_constraintEnd_toEndOf="@+id/searchtxt"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <CheckBox
-            android:id="@+id/malech"
-            style="@style/fontStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="20dp"
-            android:button="@android:drawable/btn_dialog"
-            android:text="Male"
-            app:layout_constraintStart_toStartOf="@+id/searchtxt"
-            app:layout_constraintTop_toBottomOf="@+id/searchtxt" />
-
         <EditText
             android:id="@+id/searchtxt"
-            android:layout_width="0dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="54dp"
-            android:layout_marginTop="71dp"
-            android:layout_marginEnd="54dp"
-            android:layout_marginBottom="68dp"
+            android:layout_width="327dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="13dp"
             android:ems="10"
-            android:hint="What in your mind ??"
+            android:hint="@string/srchBar"
             android:inputType="text"
-            app:layout_constraintBottom_toBottomOf="@+id/femalech"
+            app:layout_constraintBottom_toTopOf="@+id/priceBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/searchtext" />
 
         <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="29dp"
-            android:background="#ffd700"
-            android:dropDownSelector="#092C71"
-            android:popupBackground="#092C71"
-            app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+            android:id="@+id/brandsspn"
+            android:layout_width="145dp"
+            android:layout_height="49dp"
+            android:background="@drawable/spinner_background"
+            android:popupBackground="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/searchbtn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/priceValue" />
 
         <SeekBar
             android:id="@+id/priceBar"
             android:layout_width="175dp"
-            android:layout_height="33dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
+            android:layout_height="0dp"
             android:max="500"
             android:secondaryProgressTint="#ffffff"
             android:thumbTint="#ffd700"
-            app:layout_constraintBottom_toTopOf="@+id/_dynamic"
+            app:layout_constraintBottom_toTopOf="@+id/priceValue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/femalech" />
+            app:layout_constraintTop_toBottomOf="@+id/searchtxt" />
+
+
+        <TextView
+            android:id="@+id/priceValue"
+            style="@style/fontStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginBottom="11dp"
+            android:text="Price: $0"
+            android:textColor="#ffd700"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/brandsspn"
+            app:layout_constraintStart_toStartOf="@+id/brandsspn"
+            app:layout_constraintTop_toBottomOf="@+id/priceBar" />
 
         <TextView
             android:id="@+id/searchtext"
             style="@style/fontStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:layout_marginBottom="12dp"
-            android:text="Search :"
+            android:text="@string/TopSearch"
             android:textSize="25dp"
             app:layout_constraintBottom_toTopOf="@+id/searchtxt"
-            app:layout_constraintStart_toStartOf="@+id/searchtxt" />
+            app:layout_constraintStart_toStartOf="@+id/searchtxt"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ScrollView
-            android:id="@+id/scrollView3"
-            android:layout_width="0dp"
-            android:layout_height="423dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="1dp"
+        <ListView
+            android:id="@+id/searchlist"
+            android:layout_width="409dp"
+            android:layout_height="416dp"
             android:layout_marginBottom="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchbtn" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </ScrollView>
+        <Button
+            android:id="@+id/searchbtn"
+            style="@style/buttonstyles2"
+            android:layout_width="147dp"
+            android:layout_height="38dp"
+            android:layout_marginBottom="12dp"
+            android:text="@string/search"
+            app:layout_constraintBottom_toTopOf="@+id/searchlist"
+            app:layout_constraintEnd_toEndOf="@+id/searchlist"
+            app:layout_constraintStart_toStartOf="@+id/searchlist"
+            app:layout_constraintTop_toBottomOf="@+id/brandsspn" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
