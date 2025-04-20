@@ -72,7 +72,7 @@ public class Search extends AppCompatActivity {
         setSeek();
         res = findViewById(R.id.searchlist);
         satrtList = perfumes.getPerfumes();
-        PerfumeAdapter adapter = new PerfumeAdapter(Search.this, satrtList);
+        PerfumeAdapter adapter = new PerfumeAdapter(Search.this, satrtList,false);
         res.setAdapter(adapter);
 
         searchbtn.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +111,7 @@ public class Search extends AppCompatActivity {
 
 
                     // Set the adapter with final filtered list
-                PerfumeAdapter adapter = new PerfumeAdapter(Search.this, perfuemList);
+                PerfumeAdapter adapter = new PerfumeAdapter(Search.this, perfuemList,false);
                 res.setAdapter(adapter);
             }
         });

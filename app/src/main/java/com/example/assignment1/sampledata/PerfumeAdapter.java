@@ -24,13 +24,16 @@ import java.util.List;
 
 public class PerfumeAdapter extends ArrayAdapter<Perfuem> {
 
-    private final SharedPreferences sharedPreferences;
-    private final Gson gson = new Gson();
-    private static final String PREF_NAME = "cart_prefs";
+    private SharedPreferences sharedPreferences;
+    private Gson gson = new Gson();
+    private static final String PREF_NAME = "cart_pref";
     private static final String CART_KEY = "cart_items";
 
-    public PerfumeAdapter(@NonNull Context context, @NonNull List<Perfuem> perfumes) {
+    private boolean isCartMode;
+
+    public PerfumeAdapter(@NonNull Context context, @NonNull List<Perfuem> perfumes, boolean isCartMode) {
         super(context, 0, perfumes);
+        this.isCartMode = isCartMode;
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
@@ -46,54 +49,51 @@ public class PerfumeAdapter extends ArrayAdapter<Perfuem> {
         TextView brandModel = convertView.findViewById(R.id.brandModel);
         TextView price = convertView.findViewById(R.id.price);
         ImageView image = convertView.findViewById(R.id.perfumeImage);
-        Button addToCartButton = convertView.findViewById(R.id.addToCartButton);
+        Button actionButton = convertView.findViewById(R.id.addToCartButton);  // Can be Add or Delete
 
-        if (perfume != null) {
-            brandModel.setText(perfume.getBrand() + " - " + perfume.getModel());
-            price.setText("$" + perfume.getPrice());
+        brandModel.setText(perfume.getBrand() + " - " + perfume.getModel());
+        price.setText("$" + perfume.getPrice());
 
-            // Dynamically load image based on name
-            String imageName = perfume.getBrand().toLowerCase().replaceAll(" ", "_") + "_" +
-                    perfume.getModel().toLowerCase().replaceAll(" ", "_");
+        String imageName = perfume.getBrand().toLowerCase().replaceAll(" ", "_") + "_" +
+                perfume.getModel().toLowerCase().replaceAll(" ", "_");
 
-            int imageResId = getContext().getResources().getIdentifier(imageName, "drawable", getContext().getPackageName());
-            image.setImageResource(imageResId != 0 ? imageResId : R.drawable.ic_launcher_background);
+        int imageResId = getContext().getResources().getIdentifier(imageName, "drawable", getContext().getPackageName());
+        image.setImageResource(imageResId != 0 ? imageResId : R.drawable.ic_launcher_background);
 
-            // Handle add to cart
-            addToCartButton.setOnClickListener(v -> {
-                if (addToCart(perfume)) {
-                    Toast.makeText(getContext(), perfume.getModel() + " added to cart!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), perfume.getModel() + " is already in cart!", Toast.LENGTH_SHORT).show();
-                }
+        if (isCartMode) {
+            actionButton.setText("Delete");
+            actionButton.setOnClickListener(v -> {
+                removeFromCart(perfume);
+                remove(perfume);  // Remove from ListView
+                notifyDataSetChanged();
+                Toast.makeText(getContext(), perfume.getModel() + " removed from cart", Toast.LENGTH_SHORT).show();
+            });
+        } else {
+            actionButton.setText("Add to Cart");
+            actionButton.setOnClickListener(v -> {
+                addToCart(perfume);
+                Toast.makeText(getContext(), perfume.getModel() + " added to cart", Toast.LENGTH_SHORT).show();
             });
         }
 
         return convertView;
     }
 
-    // Adds perfume to cart if not already present
-    private boolean addToCart(Perfuem perfume) {
+    private void addToCart(Perfuem perfume) {
         List<Perfuem> cart = getCartItems();
-        for (Perfuem item : cart) {
-            if (item.getBrand().equalsIgnoreCase(perfume.getBrand()) &&
-                    item.getModel().equalsIgnoreCase(perfume.getModel())) {
-                return false; // already in cart
-            }
-        }
         cart.add(perfume);
-        String json = gson.toJson(cart);
-        sharedPreferences.edit().putString(CART_KEY, json).apply();
-        return true;
+        sharedPreferences.edit().putString(CART_KEY, gson.toJson(cart)).apply();
     }
 
-    // Get existing cart items from SharedPreferences
+    private void removeFromCart(Perfuem perfume) {
+        List<Perfuem> cart = getCartItems();
+        cart.removeIf(p -> p.getBrand().equals(perfume.getBrand()) && p.getModel().equals(perfume.getModel()));
+        sharedPreferences.edit().putString(CART_KEY, gson.toJson(cart)).apply();
+    }
+
     private List<Perfuem> getCartItems() {
         String json = sharedPreferences.getString(CART_KEY, null);
-        if (json != null) {
-            Type type = new TypeToken<List<Perfuem>>() {}.getType();
-            return gson.fromJson(json, type);
-        }
-        return new ArrayList<>();
+        Type type = new TypeToken<List<Perfuem>>() {}.getType();
+        return json != null ? gson.fromJson(json, type) : new ArrayList<>();
     }
 }

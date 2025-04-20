@@ -63,7 +63,7 @@ public class GenderPage extends AppCompatActivity {
 
       perfuemList = perfumes.getPerfumes();
 
-        PerfumeAdapter adapter = new PerfumeAdapter(GenderPage.this, perfuemList);
+        PerfumeAdapter adapter = new PerfumeAdapter(GenderPage.this, perfuemList,false);
         res.setAdapter(adapter);
 
 
@@ -87,7 +87,7 @@ public class GenderPage extends AppCompatActivity {
                     finalRes.addAll(perfuemList); // Show all if "All" is selected
                 }
 
-                PerfumeAdapter adapter = new PerfumeAdapter(GenderPage.this, finalRes);
+                PerfumeAdapter adapter = new PerfumeAdapter(GenderPage.this, finalRes,false);
                 res.setAdapter(adapter);
             }
         });
