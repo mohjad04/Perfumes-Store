@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.assignment1.sampledata.Perfuem;
+import com.example.assignment1.sampledata.PerfumesDA;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -51,11 +52,24 @@ public class checkOut extends AppCompatActivity {
             return;
         }
 
+        // Get cart items
         SharedPreferences prefs = getSharedPreferences("cart_prefs", MODE_PRIVATE);
+        String cartJson = prefs.getString("cart_items", "[]");
+        Gson gson = new Gson();
+        Perfuem[] perfumeArray = gson.fromJson(cartJson, Perfuem[].class);
+        List<Perfuem> cartItems = new ArrayList<>(Arrays.asList(perfumeArray));
+
+        // Decrease quantity in inventory
+        for (Perfuem perfume : cartItems) {
+                if (perfume.getQuantity() > 0) {
+                    perfume.setQuantity(perfume.getQuantity() - 1);
+                }
+        }
+
+        // Clear cart
         prefs.edit().remove("cart_items").apply();
 
         Toast.makeText(this, "Payment completed successfully!", Toast.LENGTH_LONG).show();
-
         Intent intent = new Intent(this, HomePage.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
@@ -69,12 +83,9 @@ public class checkOut extends AppCompatActivity {
         String cartJson = prefs.getString("cart_items", "[]");
 
         Gson gson = new Gson();
-        Perfuem[] perfumeArray = gson.fromJson(cartJson, Perfuem[].class);  // Fix variable name here
-
-        // Convert array to list
+        Perfuem[] perfumeArray = gson.fromJson(cartJson, Perfuem[].class);
         List<Perfuem> cartItems = new ArrayList<>(Arrays.asList(perfumeArray));
 
-        // Calculate total
         double total = 0;
         for (Perfuem item : cartItems) {
             total += item.getPrice();

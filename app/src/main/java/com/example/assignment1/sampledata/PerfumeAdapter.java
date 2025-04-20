@@ -48,8 +48,9 @@ public class PerfumeAdapter extends ArrayAdapter<Perfuem> {
 
         TextView brandModel = convertView.findViewById(R.id.brandModel);
         TextView price = convertView.findViewById(R.id.price);
+        TextView quantityText = convertView.findViewById(R.id.quantityText);
         ImageView image = convertView.findViewById(R.id.perfumeImage);
-        Button actionButton = convertView.findViewById(R.id.addToCartButton);  // Can be Add or Delete
+        Button actionButton = convertView.findViewById(R.id.addToCartButton);
 
         brandModel.setText(perfume.getBrand() + " - " + perfume.getModel());
         price.setText("$" + perfume.getPrice());
@@ -68,18 +69,33 @@ public class PerfumeAdapter extends ArrayAdapter<Perfuem> {
                 notifyDataSetChanged();
                 Toast.makeText(getContext(), perfume.getModel() + " removed from cart", Toast.LENGTH_SHORT).show();
             });
+            quantityText.setVisibility(View.GONE);
         } else {
             actionButton.setText("Add to Cart");
-            actionButton.setOnClickListener(v -> {
-                addToCart(perfume);
-                Toast.makeText(getContext(), perfume.getModel() + " added to cart", Toast.LENGTH_SHORT).show();
-            });
+            if (perfume.getQuantity() <= 0) {
+                actionButton.setEnabled(false);
+                actionButton.setText("Out of Stock");
+            } else {
+                actionButton.setEnabled(true);
+                actionButton.setOnClickListener(v -> {
+                    addToCart(perfume);
+                    Toast.makeText(getContext(), perfume.getModel() + " added to cart", Toast.LENGTH_SHORT).show();
+                });
+            }
+
+            quantityText.setVisibility(View.VISIBLE);
+            quantityText.setText("Qty: " + perfume.getQuantity());
         }
 
         return convertView;
     }
 
     private void addToCart(Perfuem perfume) {
+        if (perfume.getQuantity() <= 0) {
+            Toast.makeText(getContext(), "This perfume is out of stock!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         List<Perfuem> cart = getCartItems();
         cart.add(perfume);
         sharedPreferences.edit().putString(CART_KEY, gson.toJson(cart)).apply();

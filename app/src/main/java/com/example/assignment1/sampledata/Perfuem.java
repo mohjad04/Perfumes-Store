@@ -9,8 +9,8 @@ public class Perfuem {
     private String model;
     private double price;
     private String imgSrc;
-    String Gender;
-
+    private String Gender;
+    private int quantity;
     public String getBrand() {
         return brand;
     }
@@ -54,6 +54,14 @@ public class Perfuem {
 
     public void setGender(String gender) {
         Gender = gender;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     @Override
